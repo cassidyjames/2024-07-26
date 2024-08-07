@@ -14,3 +14,7 @@ config/name="2024-07-26"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://images/icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/block_code/plugin.cfg")
