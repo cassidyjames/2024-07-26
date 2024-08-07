@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6gblionqiw4u"]
+[gd_scene load_steps=48 format=3 uid="uid://b6gblionqiw4u"]
 
 [ext_resource type="Texture2D" uid="uid://d2yh6bpf13wo6" path="res://images/Pixel Adventure 1/Background/Green.png" id="1_sff0o"]
 [ext_resource type="Texture2D" uid="uid://b5j3qutq3wf8r" path="res://images/Pixel Adventure 1/Terrain/Terrain (16x16).png" id="2_aiowu"]
 [ext_resource type="PackedScene" uid="uid://k6eeghwpfu6u" path="res://scenes/main_character.tscn" id="3_eq6km"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="4_lywyx"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/serialized_block_tree_node.gd" id="5_2mwyg"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/serialized_block.gd" id="6_bh7mh"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="7_gjdap"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/serialized_block_tree_node_array.gd" id="8_mli1u"]
+[ext_resource type="Script" path="res://addons/block_code/block_script_data/block_script_data.gd" id="9_oo5jj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_samb3"]
 texture = ExtResource("2_aiowu")
@@ -585,6 +591,265 @@ texture = ExtResource("2_aiowu")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_samb3")
 
+[sub_resource type="Resource" id="Resource_xqaf7"]
+script = ExtResource("6_bh7mh")
+block_class = &"StatementBlock"
+serialized_props = [["block_name", "load_sound"], ["label", "StatementBlock"], ["color", Color(0.890196, 0.0588235, 0.752941, 1)], ["block_type", 2], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "Load file {file_path: STRING} as sound {name: STRING}"], ["statement", "
+var __sound = AudioStreamPlayer.new()
+__sound.name = {name}
+__sound.set_stream(load({file_path}))
+add_child(__sound)
+"], ["defaults", {}], ["param_input_strings", {
+"file_path": "res://sounds/ribbit.ogg",
+"name": "ribbit"
+}]]
+
+[sub_resource type="Resource" id="Resource_7b4d5"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_xqaf7")
+path_child_pairs = []
+
+[sub_resource type="Resource" id="Resource_lonji"]
+script = ExtResource("6_bh7mh")
+block_class = &"EntryBlock"
+serialized_props = [["block_name", "ready_block"], ["label", "EntryBlock"], ["color", Color(0.980392, 0.34902, 0.337255, 1)], ["block_type", 1], ["position", Vector2(54, 47)], ["scope", ""], ["block_format", "On Ready"], ["statement", "func _ready():"], ["defaults", {}], ["param_input_strings", {}], ["signal_name", ""]]
+
+[sub_resource type="Resource" id="Resource_uxduk"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_lonji")
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_7b4d5")]]
+
+[sub_resource type="Resource" id="Resource_ks58p"]
+script = ExtResource("7_gjdap")
+selected = 0
+items = Array[StringName]([&"ui_accept", &"ui_select", &"ui_cancel", &"ui_focus_next", &"ui_focus_prev", &"ui_left", &"ui_right", &"ui_up", &"ui_down", &"ui_page_up", &"ui_page_down", &"ui_home", &"ui_end", &"ui_cut", &"ui_copy", &"ui_paste", &"ui_undo", &"ui_redo", &"ui_text_completion_query", &"ui_text_completion_accept", &"ui_text_completion_replace", &"ui_text_newline", &"ui_text_newline_blank", &"ui_text_newline_above", &"ui_text_indent", &"ui_text_dedent", &"ui_text_backspace", &"ui_text_backspace_word", &"ui_text_backspace_word.macos", &"ui_text_backspace_all_to_left", &"ui_text_backspace_all_to_left.macos", &"ui_text_delete", &"ui_text_delete_word", &"ui_text_delete_word.macos", &"ui_text_delete_all_to_right", &"ui_text_delete_all_to_right.macos", &"ui_text_caret_left", &"ui_text_caret_word_left", &"ui_text_caret_word_left.macos", &"ui_text_caret_right", &"ui_text_caret_word_right", &"ui_text_caret_word_right.macos", &"ui_text_caret_up", &"ui_text_caret_down", &"ui_text_caret_line_start", &"ui_text_caret_line_start.macos", &"ui_text_caret_line_end", &"ui_text_caret_line_end.macos", &"ui_text_caret_page_up", &"ui_text_caret_page_down", &"ui_text_caret_document_start", &"ui_text_caret_document_start.macos", &"ui_text_caret_document_end", &"ui_text_caret_document_end.macos", &"ui_text_caret_add_below", &"ui_text_caret_add_below.macos", &"ui_text_caret_add_above", &"ui_text_caret_add_above.macos", &"ui_text_scroll_up", &"ui_text_scroll_up.macos", &"ui_text_scroll_down", &"ui_text_scroll_down.macos", &"ui_text_select_all", &"ui_text_select_word_under_caret", &"ui_text_select_word_under_caret.macos", &"ui_text_add_selection_for_next_occurrence", &"ui_text_clear_carets_and_selection", &"ui_text_toggle_insert_mode", &"ui_menu", &"ui_text_submit", &"ui_graph_duplicate", &"ui_graph_delete", &"ui_filedialog_up_one_level", &"ui_filedialog_refresh", &"ui_filedialog_show_hidden", &"ui_swap_input_direction"])
+
+[sub_resource type="Resource" id="Resource_7uqye"]
+script = ExtResource("7_gjdap")
+selected = 0
+items = ["pressed", "just_pressed", "just_released"]
+
+[sub_resource type="Resource" id="Resource_aoyfg"]
+script = ExtResource("7_gjdap")
+selected = 7
+items = ["ui_accept", "ui_select", "ui_cancel", "ui_focus_next", "ui_focus_prev", "ui_left", "ui_right", "ui_up", "ui_down", "ui_page_up", "ui_page_down", "ui_home", "ui_end", "ui_cut", "ui_copy", "ui_paste", "ui_undo", "ui_redo", "ui_text_completion_query", "ui_text_completion_accept", "ui_text_completion_replace", "ui_text_newline", "ui_text_newline_blank", "ui_text_newline_above", "ui_text_indent", "ui_text_dedent", "ui_text_backspace", "ui_text_backspace_word", "ui_text_backspace_word.macos", "ui_text_backspace_all_to_left", "ui_text_backspace_all_to_left.macos", "ui_text_delete", "ui_text_delete_word", "ui_text_delete_word.macos", "ui_text_delete_all_to_right", "ui_text_delete_all_to_right.macos", "ui_text_caret_left", "ui_text_caret_word_left", "ui_text_caret_word_left.macos", "ui_text_caret_right", "ui_text_caret_word_right", "ui_text_caret_word_right.macos", "ui_text_caret_up", "ui_text_caret_down", "ui_text_caret_line_start", "ui_text_caret_line_start.macos", "ui_text_caret_line_end", "ui_text_caret_line_end.macos", "ui_text_caret_page_up", "ui_text_caret_page_down", "ui_text_caret_document_start", "ui_text_caret_document_start.macos", "ui_text_caret_document_end", "ui_text_caret_document_end.macos", "ui_text_caret_add_below", "ui_text_caret_add_below.macos", "ui_text_caret_add_above", "ui_text_caret_add_above.macos", "ui_text_scroll_up", "ui_text_scroll_up.macos", "ui_text_scroll_down", "ui_text_scroll_down.macos", "ui_text_select_all", "ui_text_select_word_under_caret", "ui_text_select_word_under_caret.macos", "ui_text_add_selection_for_next_occurrence", "ui_text_clear_carets_and_selection", "ui_text_toggle_insert_mode", "ui_menu", "ui_text_submit", "ui_graph_duplicate", "ui_graph_delete", "ui_filedialog_up_one_level", "ui_filedialog_refresh", "ui_filedialog_show_hidden", "ui_swap_input_direction"]
+
+[sub_resource type="Resource" id="Resource_d41pc"]
+script = ExtResource("7_gjdap")
+selected = 2
+items = ["pressed", "just_pressed", "just_released"]
+
+[sub_resource type="Resource" id="Resource_465ko"]
+script = ExtResource("6_bh7mh")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", "is_action"], ["label", "Param"], ["color", Color(0.835294, 0.262745, 0.133333, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "Is action {action_name: OPTION} {action: OPTION}"], ["statement", "Input.is_action_{action}(\"{action_name}\")"], ["defaults", {
+"action": SubResource("Resource_7uqye"),
+"action_name": SubResource("Resource_ks58p")
+}], ["variant_type", 1], ["param_input_strings", {
+"action": SubResource("Resource_d41pc"),
+"action_name": SubResource("Resource_aoyfg")
+}]]
+
+[sub_resource type="Resource" id="Resource_t1euv"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_465ko")
+path_child_pairs = []
+
+[sub_resource type="Resource" id="Resource_6pmm5"]
+script = ExtResource("6_bh7mh")
+block_class = &"StatementBlock"
+serialized_props = [["block_name", "play_sound"], ["label", "StatementBlock"], ["color", Color(0.890196, 0.0588235, 0.752941, 1)], ["block_type", 2], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "Play the sound {name: STRING} with Volume dB {db: FLOAT} and Pitch Scale {pitch: FLOAT}"], ["statement", "
+var __sound_node = get_node({name})
+__sound_node.volume_db = {db}
+__sound_node.pitch_scale = {pitch}
+__sound_node.play()
+"], ["defaults", {
+"db": "0.0",
+"pitch": "1.0"
+}], ["param_input_strings", {
+"db": "0.0",
+"name": "ribbit",
+"pitch": "0.75"
+}]]
+
+[sub_resource type="Resource" id="Resource_6anbc"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_6pmm5")
+path_child_pairs = []
+
+[sub_resource type="Resource" id="Resource_eogis"]
+script = ExtResource("6_bh7mh")
+block_class = &"StatementBlock"
+serialized_props = [["block_name", "change_prop_linear_velocity"], ["label", "StatementBlock"], ["color", Color(0.647059, 0.694118, 0.760784, 1)], ["block_type", 2], ["position", Vector2(20, 0)], ["scope", ""], ["block_format", "Change Linear Velocity by {value: VECTOR2}"], ["statement", "linear_velocity += {value}"], ["defaults", {
+"value": "1,1"
+}], ["param_input_strings", {
+"value": "0,-500"
+}]]
+
+[sub_resource type="Resource" id="Resource_6nlkf"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_eogis")
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_6anbc")]]
+
+[sub_resource type="Resource" id="Resource_vff6o"]
+script = ExtResource("7_gjdap")
+selected = 6
+items = ["ui_accept", "ui_select", "ui_cancel", "ui_focus_next", "ui_focus_prev", "ui_left", "ui_right", "ui_up", "ui_down", "ui_page_up", "ui_page_down", "ui_home", "ui_end", "ui_cut", "ui_copy", "ui_paste", "ui_undo", "ui_redo", "ui_text_completion_query", "ui_text_completion_accept", "ui_text_completion_replace", "ui_text_newline", "ui_text_newline_blank", "ui_text_newline_above", "ui_text_indent", "ui_text_dedent", "ui_text_backspace", "ui_text_backspace_word", "ui_text_backspace_word.macos", "ui_text_backspace_all_to_left", "ui_text_backspace_all_to_left.macos", "ui_text_delete", "ui_text_delete_word", "ui_text_delete_word.macos", "ui_text_delete_all_to_right", "ui_text_delete_all_to_right.macos", "ui_text_caret_left", "ui_text_caret_word_left", "ui_text_caret_word_left.macos", "ui_text_caret_right", "ui_text_caret_word_right", "ui_text_caret_word_right.macos", "ui_text_caret_up", "ui_text_caret_down", "ui_text_caret_line_start", "ui_text_caret_line_start.macos", "ui_text_caret_line_end", "ui_text_caret_line_end.macos", "ui_text_caret_page_up", "ui_text_caret_page_down", "ui_text_caret_document_start", "ui_text_caret_document_start.macos", "ui_text_caret_document_end", "ui_text_caret_document_end.macos", "ui_text_caret_add_below", "ui_text_caret_add_below.macos", "ui_text_caret_add_above", "ui_text_caret_add_above.macos", "ui_text_scroll_up", "ui_text_scroll_up.macos", "ui_text_scroll_down", "ui_text_scroll_down.macos", "ui_text_select_all", "ui_text_select_word_under_caret", "ui_text_select_word_under_caret.macos", "ui_text_add_selection_for_next_occurrence", "ui_text_clear_carets_and_selection", "ui_text_toggle_insert_mode", "ui_menu", "ui_text_submit", "ui_graph_duplicate", "ui_graph_delete", "ui_filedialog_up_one_level", "ui_filedialog_refresh", "ui_filedialog_show_hidden", "ui_swap_input_direction"]
+
+[sub_resource type="Resource" id="Resource_y4tuf"]
+script = ExtResource("7_gjdap")
+selected = 2
+items = ["pressed", "just_pressed", "just_released"]
+
+[sub_resource type="Resource" id="Resource_qspcs"]
+script = ExtResource("6_bh7mh")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", "is_action"], ["label", "Param"], ["color", Color(0.835294, 0.262745, 0.133333, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "Is action {action_name: OPTION} {action: OPTION}"], ["statement", "Input.is_action_{action}(\"{action_name}\")"], ["defaults", {
+"action": SubResource("Resource_7uqye"),
+"action_name": SubResource("Resource_ks58p")
+}], ["variant_type", 1], ["param_input_strings", {
+"action": SubResource("Resource_y4tuf"),
+"action_name": SubResource("Resource_vff6o")
+}]]
+
+[sub_resource type="Resource" id="Resource_l1i5f"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_qspcs")
+path_child_pairs = []
+
+[sub_resource type="Resource" id="Resource_kw4ag"]
+script = ExtResource("6_bh7mh")
+block_class = &"StatementBlock"
+serialized_props = [["block_name", "change_prop_linear_velocity"], ["label", "StatementBlock"], ["color", Color(0.647059, 0.694118, 0.760784, 1)], ["block_type", 2], ["position", Vector2(20, 0)], ["scope", ""], ["block_format", "Change Linear Velocity by {value: VECTOR2}"], ["statement", "linear_velocity += {value}"], ["defaults", {
+"value": "1,1"
+}], ["param_input_strings", {
+"value": "250,0"
+}]]
+
+[sub_resource type="Resource" id="Resource_423ee"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_kw4ag")
+path_child_pairs = []
+
+[sub_resource type="Resource" id="Resource_l6ujy"]
+script = ExtResource("7_gjdap")
+selected = 5
+items = ["ui_accept", "ui_select", "ui_cancel", "ui_focus_next", "ui_focus_prev", "ui_left", "ui_right", "ui_up", "ui_down", "ui_page_up", "ui_page_down", "ui_home", "ui_end", "ui_cut", "ui_copy", "ui_paste", "ui_undo", "ui_redo", "ui_text_completion_query", "ui_text_completion_accept", "ui_text_completion_replace", "ui_text_newline", "ui_text_newline_blank", "ui_text_newline_above", "ui_text_indent", "ui_text_dedent", "ui_text_backspace", "ui_text_backspace_word", "ui_text_backspace_word.macos", "ui_text_backspace_all_to_left", "ui_text_backspace_all_to_left.macos", "ui_text_delete", "ui_text_delete_word", "ui_text_delete_word.macos", "ui_text_delete_all_to_right", "ui_text_delete_all_to_right.macos", "ui_text_caret_left", "ui_text_caret_word_left", "ui_text_caret_word_left.macos", "ui_text_caret_right", "ui_text_caret_word_right", "ui_text_caret_word_right.macos", "ui_text_caret_up", "ui_text_caret_down", "ui_text_caret_line_start", "ui_text_caret_line_start.macos", "ui_text_caret_line_end", "ui_text_caret_line_end.macos", "ui_text_caret_page_up", "ui_text_caret_page_down", "ui_text_caret_document_start", "ui_text_caret_document_start.macos", "ui_text_caret_document_end", "ui_text_caret_document_end.macos", "ui_text_caret_add_below", "ui_text_caret_add_below.macos", "ui_text_caret_add_above", "ui_text_caret_add_above.macos", "ui_text_scroll_up", "ui_text_scroll_up.macos", "ui_text_scroll_down", "ui_text_scroll_down.macos", "ui_text_select_all", "ui_text_select_word_under_caret", "ui_text_select_word_under_caret.macos", "ui_text_add_selection_for_next_occurrence", "ui_text_clear_carets_and_selection", "ui_text_toggle_insert_mode", "ui_menu", "ui_text_submit", "ui_graph_duplicate", "ui_graph_delete", "ui_filedialog_up_one_level", "ui_filedialog_refresh", "ui_filedialog_show_hidden", "ui_swap_input_direction"]
+
+[sub_resource type="Resource" id="Resource_mpk40"]
+script = ExtResource("7_gjdap")
+selected = 2
+items = ["pressed", "just_pressed", "just_released"]
+
+[sub_resource type="Resource" id="Resource_o5tpv"]
+script = ExtResource("6_bh7mh")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", "is_action"], ["label", "Param"], ["color", Color(0.835294, 0.262745, 0.133333, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "Is action {action_name: OPTION} {action: OPTION}"], ["statement", "Input.is_action_{action}(\"{action_name}\")"], ["defaults", {
+"action": SubResource("Resource_7uqye"),
+"action_name": SubResource("Resource_ks58p")
+}], ["variant_type", 1], ["param_input_strings", {
+"action": SubResource("Resource_mpk40"),
+"action_name": SubResource("Resource_l6ujy")
+}]]
+
+[sub_resource type="Resource" id="Resource_hw6lo"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_o5tpv")
+path_child_pairs = []
+
+[sub_resource type="Resource" id="Resource_ua2yb"]
+script = ExtResource("6_bh7mh")
+block_class = &"StatementBlock"
+serialized_props = [["block_name", "change_prop_linear_velocity"], ["label", "StatementBlock"], ["color", Color(0.647059, 0.694118, 0.760784, 1)], ["block_type", 2], ["position", Vector2(20, 0)], ["scope", ""], ["block_format", "Change Linear Velocity by {value: VECTOR2}"], ["statement", "linear_velocity += {value}"], ["defaults", {
+"value": "1,1"
+}], ["param_input_strings", {
+"value": "-250,0"
+}]]
+
+[sub_resource type="Resource" id="Resource_6p0mk"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_ua2yb")
+path_child_pairs = []
+
+[sub_resource type="Resource" id="Resource_xl636"]
+script = ExtResource("6_bh7mh")
+block_class = &"ControlBlock"
+serialized_props = [["block_name", "if"], ["label", "Control Block"], ["color", Color(0.270588, 0.666667, 0.94902, 1)], ["block_type", 2], ["position", Vector2(0, 0)], ["scope", ""], ["block_formats", ["if {condition: BOOL}"]], ["statements", ["if {condition}:"]], ["defaults", {}], ["param_input_strings_array", [{
+"condition": false
+}]]]
+
+[sub_resource type="Resource" id="Resource_nef2x"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_xl636")
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_hw6lo")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_6p0mk")]]
+
+[sub_resource type="Resource" id="Resource_nwlmx"]
+script = ExtResource("6_bh7mh")
+block_class = &"ControlBlock"
+serialized_props = [["block_name", "if"], ["label", "Control Block"], ["color", Color(0.270588, 0.666667, 0.94902, 1)], ["block_type", 2], ["position", Vector2(0, 0)], ["scope", ""], ["block_formats", ["if {condition: BOOL}"]], ["statements", ["if {condition}:"]], ["defaults", {}], ["param_input_strings_array", [{
+"condition": false
+}]]]
+
+[sub_resource type="Resource" id="Resource_tuf3j"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_nwlmx")
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_l1i5f")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_423ee")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_nef2x")]]
+
+[sub_resource type="Resource" id="Resource_4o04o"]
+script = ExtResource("6_bh7mh")
+block_class = &"ControlBlock"
+serialized_props = [["block_name", "if"], ["label", "Control Block"], ["color", Color(0.270588, 0.666667, 0.94902, 1)], ["block_type", 2], ["position", Vector2(0, 0)], ["scope", ""], ["block_formats", ["if {condition: BOOL}"]], ["statements", ["if {condition}:"]], ["defaults", {}], ["param_input_strings_array", [{
+"condition": false
+}]]]
+
+[sub_resource type="Resource" id="Resource_jlpwj"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_4o04o")
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_t1euv")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_6nlkf")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_tuf3j")]]
+
+[sub_resource type="Resource" id="Resource_8uoy7"]
+script = ExtResource("6_bh7mh")
+block_class = &"EntryBlock"
+serialized_props = [["block_name", "process_block"], ["label", "EntryBlock"], ["color", Color(0.980392, 0.34902, 0.337255, 1)], ["block_type", 1], ["position", Vector2(525, 48)], ["scope", ""], ["block_format", "On Process"], ["statement", "func _process(delta):"], ["defaults", {}], ["param_input_strings", {}], ["signal_name", ""]]
+
+[sub_resource type="Resource" id="Resource_qsjc2"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_8uoy7")
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_jlpwj")]]
+
+[sub_resource type="Resource" id="Resource_xcoyi"]
+script = ExtResource("8_mli1u")
+array = Array[ExtResource("5_2mwyg")]([SubResource("Resource_uxduk"), SubResource("Resource_qsjc2")])
+
+[sub_resource type="Resource" id="Resource_7jdut"]
+script = ExtResource("9_oo5jj")
+script_inherits = "RigidBody2D"
+block_trees = SubResource("Resource_xcoyi")
+variables = Array[Resource("res://addons/block_code/ui/block_canvas/variable_resource.gd")]([])
+generated_script = "extends RigidBody2D
+
+
+func _ready():
+	var __sound_1 = AudioStreamPlayer.new()
+	__sound_1.name = 'ribbit'
+	__sound_1.set_stream(load('res://sounds/ribbit.ogg'))
+	add_child(__sound_1)
+
+func _process(delta):
+	if Input.is_action_just_released(\"ui_up\"):
+		linear_velocity += Vector2(0,-500)
+		var __sound_node_1 = get_node('ribbit')
+		__sound_node_1.volume_db = 0.0
+		__sound_node_1.pitch_scale = 0.75
+		__sound_node_1.play()
+	if Input.is_action_just_released(\"ui_right\"):
+		linear_velocity += Vector2(250,0)
+	if Input.is_action_just_released(\"ui_left\"):
+		linear_velocity += Vector2(-250,0)
+
+"
+version = 0
+
 [node name="Node" type="Node"]
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -608,3 +873,7 @@ layer_0/tile_data = PackedInt32Array(851968, 458752, 0, 851969, 458752, 0, 85197
 position = Vector2(214, 558)
 center_of_mass_mode = 1
 center_of_mass = Vector2(0, 48)
+
+[node name="BlockCode" type="Node" parent="MainCharacter"]
+script = ExtResource("4_lywyx")
+block_script = SubResource("Resource_7jdut")
