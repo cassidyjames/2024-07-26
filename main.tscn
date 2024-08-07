@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://b6gblionqiw4u"]
+[gd_scene load_steps=60 format=3 uid="uid://b6gblionqiw4u"]
 
 [ext_resource type="Texture2D" uid="uid://d2yh6bpf13wo6" path="res://images/Pixel Adventure 1/Background/Green.png" id="1_sff0o"]
 [ext_resource type="Texture2D" uid="uid://b5j3qutq3wf8r" path="res://images/Pixel Adventure 1/Terrain/Terrain (16x16).png" id="2_aiowu"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="7_gjdap"]
 [ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/serialized_block_tree_node_array.gd" id="8_mli1u"]
 [ext_resource type="Script" path="res://addons/block_code/block_script_data/block_script_data.gd" id="9_oo5jj"]
+[ext_resource type="PackedScene" uid="uid://b7e2g6cwmjvn4" path="res://fly.tscn" id="10_nw377"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_samb3"]
 texture = ExtResource("2_aiowu")
@@ -850,6 +851,80 @@ func _process(delta):
 "
 version = 0
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n0knr"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="Resource" id="Resource_ub0b7"]
+script = ExtResource("6_bh7mh")
+block_class = &"StatementBlock"
+serialized_props = [["block_name", "set_prop_angular_velocity"], ["label", "StatementBlock"], ["color", Color(0.647059, 0.694118, 0.760784, 1)], ["block_type", 2], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "Set Angular Velocity to {value: FLOAT}"], ["statement", "angular_velocity = {value}"], ["defaults", {
+"value": "0"
+}], ["param_input_strings", {
+"value": "5"
+}]]
+
+[sub_resource type="Resource" id="Resource_gn7vu"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_ub0b7")
+path_child_pairs = []
+
+[sub_resource type="Resource" id="Resource_17dpi"]
+script = ExtResource("6_bh7mh")
+block_class = &"StatementBlock"
+serialized_props = [["block_name", "set_prop_linear_velocity"], ["label", "StatementBlock"], ["color", Color(0.647059, 0.694118, 0.760784, 1)], ["block_type", 2], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "Set Linear Velocity to {value: VECTOR2}"], ["statement", "linear_velocity = {value}"], ["defaults", {
+"value": "0,0"
+}], ["param_input_strings", {
+"value": "100,100"
+}]]
+
+[sub_resource type="Resource" id="Resource_abns7"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_17dpi")
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_gn7vu")]]
+
+[sub_resource type="Resource" id="Resource_5qhao"]
+script = ExtResource("6_bh7mh")
+block_class = &"EntryBlock"
+serialized_props = [["block_name", "ready_block"], ["label", "EntryBlock"], ["color", Color(0.980392, 0.34902, 0.337255, 1)], ["block_type", 1], ["position", Vector2(54, 47)], ["scope", ""], ["block_format", "On Ready"], ["statement", "func _ready():"], ["defaults", {}], ["param_input_strings", {}], ["signal_name", ""]]
+
+[sub_resource type="Resource" id="Resource_m8owb"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_5qhao")
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_abns7")]]
+
+[sub_resource type="Resource" id="Resource_gjsds"]
+script = ExtResource("6_bh7mh")
+block_class = &"EntryBlock"
+serialized_props = [["block_name", "process_block"], ["label", "EntryBlock"], ["color", Color(0.980392, 0.34902, 0.337255, 1)], ["block_type", 1], ["position", Vector2(525, 48)], ["scope", ""], ["block_format", "On Process"], ["statement", "func _process(delta):"], ["defaults", {}], ["param_input_strings", {}], ["signal_name", ""]]
+
+[sub_resource type="Resource" id="Resource_ut0hx"]
+script = ExtResource("5_2mwyg")
+serialized_block = SubResource("Resource_gjsds")
+path_child_pairs = []
+
+[sub_resource type="Resource" id="Resource_nk1t2"]
+script = ExtResource("8_mli1u")
+array = Array[ExtResource("5_2mwyg")]([SubResource("Resource_m8owb"), SubResource("Resource_ut0hx")])
+
+[sub_resource type="Resource" id="Resource_nbm36"]
+script = ExtResource("9_oo5jj")
+script_inherits = "RigidBody2D"
+block_trees = SubResource("Resource_nk1t2")
+variables = Array[Resource("res://addons/block_code/ui/block_canvas/variable_resource.gd")]([])
+generated_script = "extends RigidBody2D
+
+
+func _ready():
+	linear_velocity = Vector2(100,100)
+	angular_velocity = 5
+
+func _process(delta):
+	pass
+
+"
+version = 0
+
 [node name="Node" type="Node"]
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -877,3 +952,15 @@ center_of_mass = Vector2(0, 48)
 [node name="BlockCode" type="Node" parent="MainCharacter"]
 script = ExtResource("4_lywyx")
 block_script = SubResource("Resource_7jdut")
+
+[node name="Fly" parent="." instance=ExtResource("10_nw377")]
+position = Vector2(380, 140)
+physics_material_override = SubResource("PhysicsMaterial_n0knr")
+gravity_scale = 0.0
+linear_velocity = Vector2(500, 500)
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="BlockCode" type="Node" parent="Fly"]
+script = ExtResource("4_lywyx")
+block_script = SubResource("Resource_nbm36")
